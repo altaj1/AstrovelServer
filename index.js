@@ -31,7 +31,7 @@ async function run() {
           const  email = req.params.email;
           const result = await touristCollection.find({ email: email }).toArray();
           res.send(result)
-          console.log(result)
+          // console.log(result)
         })
         app.get("/view-deatils/:id",async(req, res)=>{
           const id = req.params.id
@@ -51,6 +51,12 @@ async function run() {
             console.log(spot)
             const result = await touristCollection.insertOne(spot);
             res.send(result)
+        })
+        app.delete("/delete/:id", async(req, res) =>{
+          const id = req.params.id;
+          const query = {_id: new ObjectId(id)}
+          const result = await touristCollection.deleteOne(query);
+          res.send(result);
         })
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
