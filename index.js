@@ -43,8 +43,12 @@ async function run() {
           // console.log(result)
         })
         app.get('/country/:country', async(req, res)=>{
-          const country = req.params.country;
-          console.log(country)
+          const countri = req.params.country;
+         const filter = {countryName:countri}
+         console.log(countri)
+          const result = await touristCollection.find(filter).toArray()
+          res.send(result);
+         
         })
         app.get('/all-country', async(req, res)=>{
           const country = countryCollection.find();
