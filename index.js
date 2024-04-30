@@ -25,14 +25,14 @@ const client = new MongoClient(uri, {
 async function run() {
 
     try {
-        // await client.connect()
+       
         const touristCollection = client.db("touristsDB").collection('spot');
         const countryCollection = client.db("countruDB").collection("name")
         app.get("/my-list/:email", async(req, res)=>{
           const  email = req.params.email;
           const result = await touristCollection.find({ email: email }).toArray();
           res.send(result)
-          // console.log(result)
+          
         })
         app.get("/view-deatils/:id",async(req, res)=>{
           const id = req.params.id
@@ -90,17 +90,19 @@ async function run() {
         })
         app.delete("/delete/:id", async(req, res) =>{
           const id = req.params.id;
+          console.log(id)
           const query = {_id: new ObjectId(id)}
           const result = await touristCollection.deleteOne(query);
           res.send(result);
+          console.log(result)
         })
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
-        // Close the MongoDB client connection
+       
        
      }
    }
-   // Run the function and handle any errors
+   
    run().catch(console.dir);     
 app.get('/', (req, res) => {
     res.send('this is strovel server')
